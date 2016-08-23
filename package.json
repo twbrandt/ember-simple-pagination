@@ -1,7 +1,7 @@
 {
   "name": "ember-simple-pagination",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.1.0",
+  "description": "This Ember addon is a simple pagination component with bootstrap markup.",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -11,7 +11,7 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
-  "repository": "",
+  "repository": "https://github.com/twbrandt/ember-simple-pagination",
   "engines": {
     "node": ">= 0.10.0"
   },
@@ -20,7 +20,7 @@
   "devDependencies": {
     "broccoli-asset-rev": "^2.2.0",
     "ember-ajax": "0.7.1",
-    "ember-cli": "2.3.0",
+    "ember-cli": "^2.3.0",
     "ember-cli-app-version": "^1.0.0",
     "ember-cli-dependency-checker": "^1.2.0",
     "ember-cli-htmlbars": "^1.0.1",
@@ -30,7 +30,6 @@
     "ember-cli-release": "0.2.8",
     "ember-cli-sri": "^2.0.0",
     "ember-cli-uglify": "^1.2.0",
-    "ember-data": "^2.3.0",
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.4",
@@ -40,7 +39,9 @@
     "loader.js": "^4.0.0"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "pagination",
+    "bootstrap"
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.5"
