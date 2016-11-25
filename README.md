@@ -70,9 +70,10 @@ export default Ember.Component.extend({
       }.bind(this));
   },
 
-  initialLoad: function() {
+  init: function() {
+    this._super(...arguments);
     this.loadPosts(1);
-  }.on('init'),
+  },
 
   actions: {
     getPage: function(getPageNumber) {
