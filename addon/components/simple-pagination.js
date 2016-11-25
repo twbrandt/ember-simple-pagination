@@ -4,6 +4,8 @@ export default Ember.Component.extend({
   maxPagesInList: 10,
   displayPaginator: Ember.computed.gt('totalPages',1),
   isPrevDisabled: Ember.computed.equal('pageNumber', 1),
+  attributeBindings: ['dataTestSelector:data-test-selector'],
+  dataTestSelector: null,
 
   isNextDisabled: Ember.computed('pageNumber', 'totalPages', function() {
     return this.get('pageNumber') === this.get('totalPages') ? true : false;

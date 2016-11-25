@@ -262,3 +262,18 @@ test('it does not invoke the "onPageSelect" action when the next page link is cl
 
 });
 
+test('it adds "data-test-selector" attribute to the opening <div> if specified', function(assert) {
+  assert.expect(1);
+
+  this.setProperties({
+    'pageSize': 20,
+    'recordCount': 25,
+    'dataTestSelector': "test-selector"
+  });
+
+  this.render(hbs`{{simple-pagination pageSize=pageSize recordCount=recordCount dataTestSelector=dataTestSelector}}`);
+  let element = this.$('[data-test-selector="test-selector"]');
+  assert.equal(element.length, 1, "data test selector attribute exists");  
+
+});
+
