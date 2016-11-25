@@ -1,6 +1,6 @@
 {
   "name": "ember-simple-pagination",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "This Ember addon is a simple pagination component with bootstrap markup.",
   "directories": {
     "doc": "doc",
