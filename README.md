@@ -22,6 +22,7 @@ In your templates:
   pageSize=pageSize 
   pageNumber=pageNumber
   maxPagesInList=maxPagesInList
+  dataTestSelector='my-test-selector'
   onPageSelect=(action "getPage")}}
 ```
 ### Properties
@@ -29,6 +30,7 @@ In your templates:
 - `pageSize`: The number of records in each page.
 - `pageNumber`: The current page number.
 - `maxPagesInList`: The maximum of page numbers to display. Defaults to 10.
+- `dataTestSelector`: adds a `data-test-selector` attribute to the outer div. Defaults to `null`.
 
 ### Events
 `onPageSelect`: This fires when the user clicks a page number link, or the `next page` or `previous page` links. It will invoke the external action specified. The page number selected by the user will be passed to the action. The action is not invoked if the user selects the current page link, or the `previous page` link if the current page === 1, or the `next page` link if the current page === the total number of pages.
