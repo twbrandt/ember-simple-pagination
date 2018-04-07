@@ -17,9 +17,9 @@ This Ember addon is a simple pagination component which uses Twitter Bootstrap m
 In your templates:
 
 ```
-{{simple-pagination 
-  recordCount=recordCount 
-  pageSize=pageSize 
+{{simple-pagination
+  recordCount=recordCount
+  pageSize=pageSize
   pageNumber=pageNumber
   maxPagesInList=maxPagesInList
   dataTestSelector='my-test-selector'
@@ -41,11 +41,14 @@ This example assumes the Ember `JSONAPIAdapter` and on the server `JSONAPI::Reso
 
 `app/components/display-posts.js`:
 ```javascript
-import Ember from 'ember';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { sort } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
 
-export default Ember.Component.extend({
-  store: Ember.inject.service(),
-  posts: Ember.computed(function() {
+export default Component.extend({
+  store: service(),
+  posts: computed(function() {
     return this.get('store').peekAll('post');
   }),
 
@@ -54,29 +57,29 @@ export default Ember.Component.extend({
   recordCount: null,
 
   sortProps: ['createdAt:desc'],
-  sortedPosts: Ember.computed.sort('posts', 'sortProps'),
+  sortedPosts: sort('posts', 'sortProps'),
 
-  loadPosts: function(getPageNumber) {
+  loadPosts(getPageNumber) {
     const pageSize = this.get('pageSize');
 
     this.get('store').unloadAll('post');
     this.get('store').
       query('post', {page: {number: getPageNumber, size: pageSize}}).
-      then(function(result) {
+      then((result) => {
         this.setProperties({
         	'recordCount': result.get('meta.record-count'),
         	'pageNumber': getPageNumber
         });
-      }.bind(this));
+      };
   },
 
-  init: function() {
+  init() {
     this._super(...arguments);
     this.loadPosts(1);
   },
 
   actions: {
-    getPage: function(getPageNumber) {
+    getPage(getPageNumber) {
       this.loadPosts(getPageNumber);
     }
   }
@@ -89,11 +92,11 @@ export default Ember.Component.extend({
   {{#each sortedPosts as |post|}}
     <li>{{display-post post=post}}</li>
   {{/each}}
-</ul>    
+</ul>
 
 {{simple-pagination
-  recordCount=recordCount 
-  pageSize=pageSize 
+  recordCount=recordCount
+  pageSize=pageSize
   pageNumber=pageNumber
   onPageSelect=(action "getPage")}}
 ```
