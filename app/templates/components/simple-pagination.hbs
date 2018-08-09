@@ -2,35 +2,44 @@
   <nav aria-label="Page navigation" data-test-selector="page-navigation">
     <ul class="pagination">
 
-      <li class="{{if isPrevDisabled "disabled"}}"
+      <li class="page-item {{if isPrevDisabled "disabled"}}"
         {{action "getPage" prevPageNumber}} data-test-selector="previous-page"
       >
         {{#if isPrevDisabled}}
-          <span><span aria-hidden="true">&laquo;</span></span>
+          <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
         {{else}}
-          <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+          <a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
         {{/if}}
       </li>
-    
+
       {{#each pages as |page|}}
-        <li class="page-number{{if page.active " active"}}" 
+        <li class="page-item {{if page.active " active"}}"
           {{action "getPage" page.number}} data-test-selector="page-number"
         >
           {{#if page.active}}
-            <span>{{page.number}} <span class="sr-only">(current)</span></span>
+            <span class="page-link">
+              {{page.number}}
+              <span class="sr-only">(current)</span>
+            </span>
           {{else}}
-            <a href="#">{{page.number}} </a>
+            <a class="page-link" href="#">{{page.number}} </a>
           {{/if}}
         </li>
       {{/each}}
-    
-      <li class="{{if isNextDisabled "disabled"}}" 
+
+      <li class="page-item {{if isNextDisabled "disabled"}}"
         {{action "getPage" nextPageNumber}} data-test-selector="next-page"
       >
         {{#if isNextDisabled}}
-          <span><span aria-hidden="true">&raquo;</span></span>
+          <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
         {{else}}
-          <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+          <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
         {{/if}}
       </li>
     </ul>
