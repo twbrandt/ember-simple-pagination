@@ -136,7 +136,7 @@ module('Integration | Component | simple paginatiton', function(hooks) {
       onPageSelect=(action externalAction)}}`);
 
     // Click page number 2.
-    this.element.querySelectorAll('[data-test-selector="page-number"]')[1].click();
+    this.element.querySelector('[data-test-selector="page-number-link"]').click();
 
   });
 
@@ -160,7 +160,7 @@ module('Integration | Component | simple paginatiton', function(hooks) {
       pageNumber=pageNumber
       onPageSelect=(action externalAction)}}`);
 
-    await click('[data-test-selector="previous-page"]');
+    await click('[data-test-selector="previous-page-link"]');
 
   });
 
@@ -184,7 +184,7 @@ module('Integration | Component | simple paginatiton', function(hooks) {
       pageNumber=pageNumber
       onPageSelect=(action externalAction)}}`);
 
-    await click('[data-test-selector="next-page"]');
+    await click('[data-test-selector="next-page-link"]');
 
   });
 

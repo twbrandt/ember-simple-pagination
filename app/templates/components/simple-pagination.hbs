@@ -2,35 +2,43 @@
   <nav aria-label="Page navigation" data-test-selector="page-navigation">
     <ul class="pagination">
 
-      <li class="{{if isPrevDisabled "disabled"}}"
-        {{action "getPage" prevPageNumber}} data-test-selector="previous-page"
-      >
+      <li class={{if isPrevDisabled "disabled"}} data-test-selector="previous-page">
         {{#if isPrevDisabled}}
           <span><span aria-hidden="true">&laquo;</span></span>
         {{else}}
-          <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+          <a href="#"
+            aria-label="Previous"
+            {{action "getPage" prevPageNumber}}
+            data-test-selector="previous-page-link"
+          >
+            <span aria-hidden="true">&laquo;</span>
+          </a>
         {{/if}}
       </li>
-    
+
       {{#each pages as |page|}}
-        <li class="page-number{{if page.active " active"}}" 
-          {{action "getPage" page.number}} data-test-selector="page-number"
-        >
+        <li class="page-number{{if page.active " active"}}" data-test-selector="page-number">
           {{#if page.active}}
             <span>{{page.number}} <span class="sr-only">(current)</span></span>
           {{else}}
-            <a href="#">{{page.number}} </a>
+            <a href="#" {{action "getPage" page.number}} data-test-selector="page-number-link">
+              {{page.number}}
+            </a>
           {{/if}}
         </li>
       {{/each}}
-    
-      <li class="{{if isNextDisabled "disabled"}}" 
-        {{action "getPage" nextPageNumber}} data-test-selector="next-page"
-      >
+
+      <li class={{if isNextDisabled "disabled"}} data-test-selector="next-page">
         {{#if isNextDisabled}}
           <span><span aria-hidden="true">&raquo;</span></span>
         {{else}}
-          <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+          <a href="#"
+            aria-label="Next"
+            {{action "getPage" nextPageNumber}}
+            data-test-selector="next-page-link"
+          >
+            <span aria-hidden="true">&raquo;</span>
+          </a>
         {{/if}}
       </li>
     </ul>
