@@ -28,7 +28,7 @@ In your templates:
 ### Properties
 - `recordCount`: The total number records in the collection being paginated.
 - `pageSize`: The number of records in each page.
-- `pageNumber`: The current page number.
+- `pageNumber`: The current page number. Note that page numbers begin at `1`, not `0`.
 - `maxPagesInList`: The maximum of page numbers to display. Defaults to 10.
 - `dataTestSelector`: adds a `data-test-selector` attribute to the outer div. Defaults to `null`.
 
