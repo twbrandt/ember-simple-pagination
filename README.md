@@ -9,6 +9,9 @@ This Ember addon is a simple pagination component which uses Twitter Bootstrap m
 ![screenshot](screenshots/ember-simple-pagination-screenshot.png)
 
 ## Installation
+* Ember.js v3.4 or above
+* Ember CLI v2.13 or above
+* Node.js v8 or above
 
 `ember install ember-simple-pagination`
 
