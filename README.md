@@ -9,9 +9,8 @@ This Ember addon is a simple pagination component which uses Twitter Bootstrap m
 ![screenshot](screenshots/ember-simple-pagination-screenshot.png)
 
 ## Installation
-* Ember.js v3.4 or above
-* Ember CLI v2.13 or above
-* Node.js v8 or above
+* Ember.js v3.24 or above
+* Node.js v14 or above
 
 `ember install ember-simple-pagination`
 
@@ -20,20 +19,19 @@ This Ember addon is a simple pagination component which uses Twitter Bootstrap m
 In your templates:
 
 ```
-{{simple-pagination
-  recordCount=recordCount
-  pageSize=pageSize
-  pageNumber=pageNumber
-  maxPagesInList=maxPagesInList
-  dataTestSelector='my-test-selector'
-  onPageSelect=(action "getPage")}}
+<SimplePagination
+  @recordCount={{this.recordCount}}
+  @pageSize={{this.pageSize}}
+  @pageNumber={{this.pageNumber}}
+  @maxPagesInList={{this.maxPagesInList}}
+  @onPageSelect={{this.externalAction}}
+/>
 ```
-### Properties
+### Arguments
 - `recordCount`: The total number records in the collection being paginated.
 - `pageSize`: The number of records in each page.
 - `pageNumber`: The current page number. Note that page numbers begin at `1`, not `0`.
 - `maxPagesInList`: The maximum of page numbers to display. Defaults to 10.
-- `dataTestSelector`: adds a `data-test-selector` attribute to the outer div. Defaults to `null`.
 
 ### Events
 `onPageSelect`: This fires when the user clicks a page number link, or the `next page` or `previous page` links. It will invoke the external action specified. The page number selected by the user will be passed to the action. The action is not invoked if the user selects the current page link, or the `previous page` link if the current page === 1, or the `next page` link if the current page === the total number of pages.
@@ -44,62 +42,41 @@ This example assumes the Ember `JSONAPIAdapter` and on the server `JSONAPI::Reso
 
 `app/components/display-posts.js`:
 ```javascript
-import Component from '@ember/component';
-import { computed } from '@ember/object';
-import { sort } from '@ember/object/computed';
-import { inject as service } from '@ember/service';
+import Component from '@glimmer/component';
+import { query } from 'ember-data-resources';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  store: service(),
-  posts: computed(function() {
-    return this.get('store').peekAll('post');
-  }),
+export default class Example extends Component {
+    @tracked pageNumber = 1;
+    @tracked pageSize = 20;
 
-  pageSize: 20,
-  pageNumber: null,
-  recordCount: null,
+    posts = query(this, 'post', () => ({ pageSize: this.pageSize, pageNumber: this.pageNumber }));
 
-  sortProps: ['createdAt:desc'],
-  sortedPosts: sort('posts', 'sortProps'),
-
-  loadPosts(getPageNumber) {
-    const pageSize = this.get('pageSize');
-
-    this.get('store').unloadAll('post');
-    this.get('store').
-      query('post', {page: {number: getPageNumber, size: pageSize}}).
-      then((result) => {
-        this.setProperties({
-        	'recordCount': result.get('meta.record-count'),
-        	'pageNumber': getPageNumber
-        });
-      };
-  },
-
-  init() {
-    this._super(...arguments);
-    this.loadPosts(1);
-  },
-
-  actions: {
-    getPage(getPageNumber) {
-      this.loadPosts(getPageNumber);
+    @action
+    changePage(pageNumber) {
+      this.pageNumber = pageNumber;
     }
-  }
-});
+}
 ```
 
 `app/templates/components/display-posts.hbs`:
 ```html
 <ul class="list-unstyled">
-  {{#each sortedPosts as |post|}}
-    <li>{{display-post post=post}}</li>
-  {{/each}}
+  {{#if this.posts.isLoading}}
+    ...loading
+  {{else if this.posts.records}}
+    {{#each this.posts as |post|}}
+      <li>{{post.title}}</li>
+    {{/each}}
+  {{/if}}
 </ul>
 
-{{simple-pagination
-  recordCount=recordCount
-  pageSize=pageSize
-  pageNumber=pageNumber
-  onPageSelect=(action "getPage")}}
+<SimplePagination
+  @recordCount={{this.posts.records.meta.total}}
+  @pageSize={{this.pageSize}}
+  @pageNumber={{this.pageNumber}}
+  @maxPagesInList={{10}}
+  @onPageSelect={{this.changePage}}
+/>
 ```
