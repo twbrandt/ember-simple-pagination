@@ -1,4 +1,5 @@
 # Ember-simple-pagination
+## This addon is no longer maintained. If you wish to take it over, please contact me and I will transfer it to you.
 
 [![Build Status](https://travis-ci.org/twbrandt/ember-simple-pagination.svg?branch=master)](https://travis-ci.org/twbrandt/ember-simple-pagination)
 [![Code Climate](https://codeclimate.com/github/twbrandt/ember-simple-pagination/badges/gpa.svg)](https://codeclimate.com/github/twbrandt/ember-simple-pagination)
